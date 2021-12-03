@@ -176,3 +176,65 @@ document.querySelector('#compose-form').addEventListener('submit', function(even
 });
 
 document.querySelector('#emails-view').innerHTML = `<h3>test</h3>`;
+
+    document.querySelectorAll('div').forEach(function(div) {
+            if (div.id === 'emails-view') {
+                div.style.display = 'block';
+
+            } else {
+                div.style.display = 'none';
+                div.innerHTML = '';
+            }
+        });
+
+        const viewsObject = {
+            emailsView: document.querySelector('#emails-view'),
+            composeView: document.querySelector('#compose-view'),
+            readView: document.querySelector('#read-view'),
+            sentView: document.querySelector('#sent-view'),
+            archivedView: document.querySelector('#archived-view'),
+        };
+
+        // function views() {
+        //     for (let view in viewsObject) {
+        //         if (view === emailsView) {
+        //             viewsObject[view].style.display = 'block';
+        //         } else {
+        //             viewsObject[view].style.display = 'none';
+        //             viewsObject[view].innerHTML = '';
+        //         }
+        //     }
+        // };
+
+        // // Show the mailbox and hide other views
+        // viewsObject.emailsView.style.display = 'block';
+        // viewsObject.composeView.style.display = 'none';
+        // viewsObject.readView.style.display = 'none';
+        // viewsObject.readView.innerHTML = '';
+        // viewsObject.sentView.style.display = 'none';
+        // viewsObject.sentView.innerHTML = '';
+        // viewsObject.archivedView.style.display = 'none';
+        // viewsObject.archivedView.innerHTML = '';
+
+        // Show the mailbox name
+        // const emailsView = document.querySelector('#emails-view');
+        // console.log(emailsView);
+
+        const viewsObject = {
+            emailsView: document.querySelector('#emails-view'),
+            composeView: document.querySelector('#compose-view'),
+            readView: document.querySelector('#read-view'),
+            sentView: document.querySelector('#sent-view'),
+            archivedView: document.querySelector('#archived-view'),
+        };
+
+        function views() {
+            for (let view in viewsObject) {
+                if (view === readView) {
+                    viewsObject[view].style.display = 'block';
+                } else {
+                    viewsObject[view].style.display = 'none';
+                    viewsObject[view].innerHTML = '';
+                }
+            }
+        };

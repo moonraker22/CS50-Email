@@ -6,6 +6,9 @@
 a {
     text-decoration: none;
 }
+body {
+font-family: 'Roboto', sans-serif;
+}
 </style>
     <h2>{{ request.user.email }}</h2>
 
@@ -39,7 +42,7 @@ a {
                 <input class="form-control" id="compose-subject" placeholder="Subject">
             </div>
             <textarea class="form-control" id="compose-body" placeholder="Body" style="height: 350px;"></textarea>
-            <input type="submit" id="submit-send" class="btn btn-primary"/>
+            <input type="submit" id="submit-send" class="btn btn-primary" value="Send"/>
         </form>
     </div>
 {% endblock %}

@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
         send_email();
     });
 
+
+
+
 });
 
 
@@ -82,7 +85,7 @@ function load_mailbox(mailbox) {
             emails.forEach(email => {
                 if (email.read === true) {
                     viewsObject.emailsView.innerHTML += `   
-            <div class="row border border-primary p-1 m-2" style="border-radius: 5px;">  
+            <div class="row border border-primary p-1 m-2 emailRow" style="border-radius: 5px;">  
                     <div class="col-5 text-decoration-none">
                         <p class="float-start"> <small class="text-muted"> From: </small>
                         <strong><a href="#" onclick="readEmail('${email.id}')">
@@ -94,9 +97,27 @@ function load_mailbox(mailbox) {
                     </div>               
             </div>    
         `;
+                    gsap.to(".row", 1, {
+                        scale: 1.1,
+                        onComplete: function() {
+                            gsap.to(".row", 1, {
+                                scale: 1,
+                                ease: Power4.easeIn,
+                            });
+                        }
+                    });
+                    gsap.to(".btn", 1, {
+                        scale: 1.1,
+                        onComplete: function() {
+                            gsap.to(".btn", 1, {
+                                scale: 1,
+                                ease: Power4.easeIn,
+                            });
+                        }
+                    });
                 } else {
                     viewsObject.emailsView.innerHTML += `     
-            <div class="row bg-secondary bg-opacity-50 p-2 m-2" style="border-radius: 5px;">           
+            <div class="row bg-secondary bg-opacity-50 p-2 m-2 emailRow" style="border-radius: 5px;">           
                     <div class="col-5 text-decoration-none">
                         <p class="float-start"> <small class="text-muted">From:</small>
                         <strong><a href="#" onclick="readEmail('${email.id}')">
@@ -108,6 +129,24 @@ function load_mailbox(mailbox) {
                     </div>
             </div>
         `;
+                    gsap.to(".row", 1, {
+                        scale: 1.1,
+                        onComplete: function() {
+                            gsap.to(".row", 1, {
+                                scale: 1,
+                                ease: Power4.easeIn,
+                            });
+                        }
+                    });
+                    gsap.to(".btn", 1, {
+                        scale: 1.1,
+                        onComplete: function() {
+                            gsap.to(".btn", 1, {
+                                scale: 1,
+                                ease: Power4.easeIn,
+                            });
+                        }
+                    });
                 }
             });
         });
@@ -143,7 +182,7 @@ function send_email() {
     document.querySelector('#compose-recipients').value = '';
     document.querySelector('#compose-subject').value = '';
     document.querySelector('#compose-body').value = '';
-    // load_mailbox('sent');
+    load_mailbox('sent');
 }
 
 function readEmail(id) {
@@ -160,7 +199,7 @@ function readEmail(id) {
         .then(response => response.json())
         .then(email => {
             document.querySelector('#read-view').innerHTML = "";
-            document.querySelector('#read-view').innerHTML += `
+            document.querySelector("#read-view").innerHTML += `
             <div class="email-item container">
                 <div class="row m-2">
                 <div class="email-header col-12 mt-2 border-end border-start  border-top">
@@ -229,9 +268,20 @@ function readEmail(id) {
                 reply(email.id);
             });
             document.querySelector('#reply').append(replyElm);
+            mark_read(email.id);
+            gsap.to(".btn", 1, {
+                scale: 1.1,
+                onComplete: function() {
+                    gsap.to(".btn", 1, {
+                        scale: 1,
+                        ease: Power4.easeIn,
+                    });
+                }
+            });
         }).catch(error => {
             console.error('Error:', error);
         });
+
 }
 
 function archive_email(id) {
@@ -274,4 +324,17 @@ function reply(id) {
         }).catch(error => {
             console.error('Error:', error);
         });
+}
+
+function mark_read(id) {
+    fetch(`/emails/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            read: true
+        })
+    })
+    console.log('Success: marked as read');
 }
